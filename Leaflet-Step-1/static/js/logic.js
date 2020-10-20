@@ -26,7 +26,7 @@ function createFeatures(earthquakeData) {
     onEachFeature: onEachFeature,
     pointToLayer: (feature, latlng) => {
       return new L.Circle(latlng, {
-        radius: feature.properties.mag*20000,
+        radius: feature.properties.mag*30000,
         fillColor: "red",
         stroke: false
       });
