@@ -1,5 +1,5 @@
 // store API inside queryURL
-let queryUrl = 
+let queryUrl = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson";
 
 // perform a GET request to the query URL
 d3.json(queryUrl).then(data => {
@@ -13,17 +13,34 @@ function createFeatures(earthquakeData) {
   // define a function we want to run once for each feature in the features array
   // give each feature a popup describing the magnitude, depth and location of the earthquake
   function onEachFeature(feature, layer) {
-    layer.bindpopup("<h3>" + feature.properties.mag)
+    layer.bindpopup("<h3>" + feature.properties.mag + "</h3><hr>" + feature.properties.place + "</p>");
   }
-}
+
+  // create GeoJSON layer containing the features array on the earthquakeData object
+  // run the onEachFeature function once for each piece of data in the array
+  let earthquakes = L.geoJSON(earthquakeData, {
+    onEachFeature: onEachFeature,
+  });
+
+  let mags = L.geoJSON(earthquakeData, {
+    onEachFeature: onEachFeature,
+    pointToLayer: (feature, latlng) => {
+      return new L.Circle(latlng, {
+        radius: feature.properties.mag*20000,
+        fillcolor: "red",
+        stroke: false
+      });
+    }
+  });
 
 
 
 
 // Create a map object
-var myMap = L.map("map", {
+let myMap = L.map("map", {
     center: [15.5994, -28.6731],
     zoom: 3
+    layers: [streetmap, earthquakes]
   });
 
 // adding tile layer
