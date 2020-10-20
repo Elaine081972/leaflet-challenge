@@ -1,5 +1,21 @@
 // store API inside queryURL
+let queryUrl = 
 
+// perform a GET request to the query URL
+d3.json(queryUrl).then(data => {
+  console.log(data);
+  // once we get a response, send the data.features object to createFeatures function
+  createFeatures(data.features);
+});
+
+function createFeatures(earthquakeData) {
+
+  // define a function we want to run once for each feature in the features array
+  // give each feature a popup describing the magnitude, depth and location of the earthquake
+  function onEachFeature(feature, layer) {
+    layer.bindpopup("<h3>" + feature.properties.mag)
+  }
+}
 
 
 
