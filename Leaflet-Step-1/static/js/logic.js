@@ -11,9 +11,9 @@ d3.json(queryUrl).then(data => {
 function createFeatures(earthquakeData) {
 
   // define a function we want to run once for each feature in the features array
-  // give each feature a popup describing the magnitude, depth and location of the earthquake
+  // give each feature a popup describing the magnitude, location and depth of the earthquake
   function onEachFeature(feature, layer) {
-    layer.bindpopup("<h3>" + feature.properties.mag + "</h3><hr>" + feature.properties.place + "</p>");
+    layer.bindPopup("<hr>Magnitude: " + feature.properties.mag + "<br>Location: " + feature.properties.place + "<br>Depth: " + feature.geometry.coordinates[2] + "</hr>");
   }
 
   // create GeoJSON layer containing the features array on the earthquakeData object
@@ -27,29 +27,55 @@ function createFeatures(earthquakeData) {
     pointToLayer: (feature, latlng) => {
       return new L.Circle(latlng, {
         radius: feature.properties.mag*20000,
-        fillcolor: "red",
+        fillColor: "red",
         stroke: false
       });
     }
   });
+  // sending our earthquakes layer to the createMap function
+  createMap(earthquakes, mags);
+}
 
+function createMap(earthquakes, mags) {
 
-
-
-// Create a map object
-let myMap = L.map("map", {
-    center: [15.5994, -28.6731],
-    zoom: 3
-    layers: [streetmap, earthquakes]
-  });
-
-// adding tile layer
-L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
+  let streetmap = L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
     attribution: "© <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> <strong><a href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a></strong>",
     tileSize: 512,
     maxZoom: 18,
     zoomOffset: -1,
     id: "mapbox/streets-v11",
     accessToken: API_KEY
+  });
+
+  let darkmap = L.tileLayer("https://api.mapbox.com/styles/v1/mapbox/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
+    attribution: "Map data &copy; <a href=\"https://www.openstreetmap.org/\">OpenStreetMap</a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, Imagery © <a href=\"https://www.mapbox.com/\">Mapbox</a>",
+    maxZoom: 18,
+    id: "dark-v10",
+    accessToken: API_KEY
+  });
+   // define a baseMaps object to hold our base layers
+   let baseMaps = {
+     "Street Map": streetmap,
+     "Dark Map": darkmap
+   };
+
+   // Create overlay object to hold our overlay layer
+   let overlayMaps = {
+    Earthquakes: earthquakes,
+    Magnitudes: mags
+  };
+
+// Create a map, giving it the streetmap and earthquakes layers to display on load
+let myMap = L.map("map", {
+    center: [15.5994, -28.6731],
+    zoom: 3,
+    layers: [streetmap, mags]
+  });
+
+// Create a layer control
+  // Pass in our baseMaps and overlayMaps
+  // Add the layer control to the map
+  L.control.layers(baseMaps, overlayMaps, {
+    collapsed: false
   }).addTo(myMap);
-  
+}
