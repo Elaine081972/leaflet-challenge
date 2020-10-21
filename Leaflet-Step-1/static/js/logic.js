@@ -18,11 +18,11 @@ function createFeatures(earthquakeData) {
   }
   
   // create GeoJSON layer containing the features array on the earthquakeData object
-  // run the onEachFeature function once for each piece of data in the array
+  
   let earthquakes = L.geoJSON(earthquakeData, {
     onEachFeature: onEachFeature,
   });
-
+  //  create function for different colors depending on earthquake depth (greater the depth to appear darker in color)
   function getColor(d) {
     return d > 90 ? '#800026' :
            d > 70 ? '#BD0026' :
@@ -31,6 +31,7 @@ function createFeatures(earthquakeData) {
            d > 10 ? '#FD8D3C' :
                     '#FEB24C' ;
   }
+  // run the onEachFeature function once for each piece of data in the array
   let mags = L.geoJSON(earthquakeData, {
     onEachFeature: onEachFeature,
     pointToLayer: (feature, latlng) => {
@@ -79,7 +80,7 @@ function createMap(earthquakes, mags) {
 let myMap = L.map("map", {
     center: [15.5994, -28.6731],
     zoom: 3,
-    layers: [streetmap, mags]
+    layers: [darkmap, mags]
   });
 
 // Create a layer control
