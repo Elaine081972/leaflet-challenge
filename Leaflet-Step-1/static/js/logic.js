@@ -107,4 +107,23 @@ let myMap = L.map("map", {
   L.control.layers(baseMaps, overlayMaps, {
     collapsed: false
   }).addTo(myMap);
+
+  var legend = L.control({position: 'bottomright'});
+
+  legend.onAdd = function () {
+
+    let div = L.DomUtil.create('div', 'info legend'),
+        grades = [-8, 10, 30, 50, 70, 90],
+        labels = [];
+
+    for (var i = 0; i < grades.length; i++) {
+      div.innerHTML +=
+        '<i style="background:' + getColor(grades[i] + 1) + '"></i> ' +
+        grades[i] + (grades[i + 1] ? '&ndash;' + grades[i +1] + '<br>' : '+');
+    }
+    return div;
+
+    
+  };
+  legend.addTo(myMap);
 }
