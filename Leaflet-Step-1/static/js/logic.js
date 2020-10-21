@@ -39,7 +39,8 @@ function createFeatures(earthquakeData) {
         radius: feature.properties.mag*30000,
         color: "white",
         fillColor: getColor(feature.geometry.coordinates[2]),
-        stroke: false
+        stroke: false,
+        fillOpacity: 0.7
       });
     }
   });
