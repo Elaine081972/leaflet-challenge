@@ -10,7 +10,7 @@ Leaflet Step 1 :
 
  - Uses USGS GeoJSON data. 'All earthquakes in the Past 7 days' was the data set that was used. It is updated every minute. A number of other feeds can be used.
 
- - A map using Leaflet was created. It plots all of the earthquakes from the data set based on longitude and latitude coordinates.
+ - A map using Leaflet/mapbox was created. It plots all of the earthquakes from the data set based on longitude and latitude coordinates.
 
  - Two maps were created - a street map and a dark map version (either can be clicked on to view)
 
@@ -22,7 +22,10 @@ Leaflet Step 1 :
 
  - A legend provides an index for the color range/depth of the earthquake circles/data points.
 
-*** Note: The use of a "live server" extension or "python -m http.server" needs to be used and hosted on a local host in your web browser.
+*** Note: 
+    - The use of a "live server" extension or "python -m http.server" needs to be used and hosted on a local host in your web browser.
+
+    - An API key is required from Mapbox for your config.js. Format for config.js - const API_KEY = "your access token"
 
 
 
