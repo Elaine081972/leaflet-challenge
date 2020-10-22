@@ -24,7 +24,8 @@ Leaflet Step 1 :
 
 *** Note: 
 
-    - The use of a "live server" extension or "python -m http.server" needs to be used and hosted on a local host in your web browser.
+    - The use of a "live server" extension or "python -m http.server" needs to be used and hosted 
+    on a local host in your web browser.
 
     - An API key is required from Mapbox for your config.js. Format for config.js - 
     const API_KEY = "your access token"
