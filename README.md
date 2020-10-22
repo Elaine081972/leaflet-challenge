@@ -22,6 +22,8 @@ Leaflet Step 1 :
 
  - A legend provides an index for the color range/depth of the earthquake circles/data points.
 
+*** Note: The use of a "live server" extension or "python -m http.server" needs to be used and hosted on a local host in your web browser.
+
 
 
  
