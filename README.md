@@ -28,7 +28,8 @@ Leaflet Step 1 :
     on a local host in your web browser.
 
     - An API key is required from Mapbox for your config.js. Format for config.js - 
-    const API_KEY = "your access token"
+    const API_KEY = "your access token". Please note hierarchy for file location - 
+    static/js/config.js.
 
 
 
