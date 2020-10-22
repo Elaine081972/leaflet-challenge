@@ -44,6 +44,7 @@ function createFeatures(earthquakeData) {
       });
     }
   });
+
   // let legend = L.control({position: "bottomright"});
   // legend.onAdd = function (map) {
   //   let div = L.DomUtil.create("div", "info legend"),
@@ -108,22 +109,30 @@ let myMap = L.map("map", {
     collapsed: false
   }).addTo(myMap);
 
-  var legend = L.control({position: 'bottomright'});
 
-  legend.onAdd = function () {
+var legend = L.control({position: 'bottomright'});
 
-    let div = L.DomUtil.create('div', 'info legend'),
-        grades = [-8, 10, 30, 50, 70, 90],
-        labels = [];
+legend.onAdd = function (map) {
 
-    for (var i = 0; i < grades.length; i++) {
-      div.innerHTML +=
-        '<i style="background:' + getColor(grades[i] + 1) + '"></i> ' +
-        grades[i] + (grades[i + 1] ? '&ndash;' + grades[i +1] + '<br>' : '+');
-    }
-    return div;
+		var div = L.DomUtil.create('div', 'info legend'),
+			grades = [0, 10, 20, 50, 100, 200, 500, 1000],
+			labels = [],
+			from, to;
 
-    
-  };
-  legend.addTo(myMap);
+		for (var i = 0; i < grades.length; i++) {
+			from = grades[i];
+			to = grades[i + 1];
+
+			labels.push(
+				'<i style="background:' + getColor(from + 1) + '"></i> ' +
+				from + (to ? '&ndash;' + to : '+'));
+		}
+
+		div.innerHTML = labels.join('<br>');
+		return div;
+	};
+
+  legend.addTo(map);
+  
 }
+
