@@ -125,7 +125,7 @@ let myMap = L.map("map", {
  legend.onAdd = function () {
 
 		var div = L.DomUtil.create('div', 'info legend'),
-			grades = [-8, 10, 30, 50, 70, 90],
+			grades = [-9, 11, 31, 50, 70, 90],
 			labels = [],
 			from, to;
 
