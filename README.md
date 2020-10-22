@@ -14,7 +14,7 @@ Leaflet Step 1 :
 
  - Two maps were created - a street map and a dark map version (either can be clicked on to view)
 
- - Earthquake marker pins and magnitude cirlcles are layered over the maps. Again, either/both can be chosen
+ - Earthquake marker pins and magnitude circles are layered over the maps. Again, either/both can be chosen
 
  - The magnitude circle markers reflect their size proportional to their magnitude, and the colors reflect their depth of the earthqake. Thus, earthquakes with higher magnitude should appear larger and greater depth should appear darker in color. 
 
