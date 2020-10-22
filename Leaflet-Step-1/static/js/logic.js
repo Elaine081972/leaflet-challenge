@@ -94,7 +94,7 @@ let myMap = L.map("map", {
     collapsed: false
   }).addTo(myMap);
 
-// create legend / index colors for earthquake depth
+// create legend / index colors for earthquake depth (code from leaflet tutorial - chloropleth/ style.css code added as well)
 let legend = L.control({position: 'bottomright'});
 
 legend.onAdd = function () {
