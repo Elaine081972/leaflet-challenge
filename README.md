@@ -8,7 +8,7 @@ will help better educate the public and other government organizations on this i
 
 Leaflet Step 1 :
 
-  Uses USGS GeoJSON data. All earthquakes in the past 7 days was the data set that was used. It is update every minute.
+ - Uses USGS GeoJSON data. All earthquakes in the past 7 days was the data set that was used. It is update every minute.
 
-  
+
  
