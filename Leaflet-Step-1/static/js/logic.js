@@ -9,6 +9,16 @@ d3.json(queryUrl).then(data => {
   createFeatures(data.features);
 });
 
+
+function getColor(d) {
+  return d > 90 ? '#800026' :
+         d > 70 ? '#BD0026' :
+         d > 50 ? '#E31A1C' :
+         d > 30 ? '#FC4E2A' :
+         d > 10 ? '#FD8D3C' :
+                  '#FEB24C' ;
+}
+
 function createFeatures(earthquakeData) {
 
   // define a function we want to run once for each feature in the features array
@@ -23,14 +33,14 @@ function createFeatures(earthquakeData) {
     onEachFeature: onEachFeature,
   });
   //  create function for different colors depending on earthquake depth (greater the depth to appear darker in color)
-  function getColor(d) {
-    return d > 90 ? '#800026' :
-           d > 70 ? '#BD0026' :
-           d > 50 ? '#E31A1C' :
-           d > 30 ? '#FC4E2A' :
-           d > 10 ? '#FD8D3C' :
-                    '#FEB24C' ;
-  }
+  // function getColor(d) {
+  //   return d > 90 ? '#800026' :
+  //          d > 70 ? '#BD0026' :
+  //          d > 50 ? '#E31A1C' :
+  //          d > 30 ? '#FC4E2A' :
+  //          d > 10 ? '#FD8D3C' :
+  //                   '#FEB24C' ;
+  // }
   // run the onEachFeature function once for each piece of data in the array
   let mags = L.geoJSON(earthquakeData, {
     onEachFeature: onEachFeature,
@@ -110,12 +120,12 @@ let myMap = L.map("map", {
   }).addTo(myMap);
 
 
-var legend = L.control({position: 'bottomright'});
+ var legend = L.control({position: 'bottomright'});
 
-legend.onAdd = function (map) {
+ legend.onAdd = function () {
 
 		var div = L.DomUtil.create('div', 'info legend'),
-			grades = [0, 10, 20, 50, 100, 200, 500, 1000],
+			grades = [-8, 10, 30, 50, 70, 90],
 			labels = [],
 			from, to;
 
@@ -132,7 +142,7 @@ legend.onAdd = function (map) {
 		return div;
 	};
 
-  legend.addTo(map);
+  legend.addTo(myMap);
   
 }
 
