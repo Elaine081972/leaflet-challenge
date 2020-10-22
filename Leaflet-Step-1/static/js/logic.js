@@ -9,7 +9,7 @@ d3.json(queryUrl).then(data => {
   createFeatures(data.features);
 });
 
-
+// create function for colors for earthquake depths
 function getColor(d) {
   return d > 90 ? '#800026' :
          d > 70 ? '#BD0026' :
@@ -24,7 +24,7 @@ function createFeatures(earthquakeData) {
   // define a function we want to run once for each feature in the features array
   // give each feature a popup describing the magnitude, location and depth of the earthquake
   function onEachFeature(feature, layer) {
-    layer.bindPopup("<hr>Magnitude: " + feature.properties.mag + "<br>Location: " + feature.properties.place + "<br>Depth: " + feature.geometry.coordinates[2] + "</hr>");
+    layer.bindPopup("<hr>Magnitude: " + feature.properties.mag + "<br>Location: " + feature.properties.place + "<br>Depth: " + feature.geometry.coordinates[2] + " km</hr>");
   }
   
   // create GeoJSON layer containing the features array on the earthquakeData object
@@ -32,15 +32,7 @@ function createFeatures(earthquakeData) {
   let earthquakes = L.geoJSON(earthquakeData, {
     onEachFeature: onEachFeature,
   });
-  //  create function for different colors depending on earthquake depth (greater the depth to appear darker in color)
-  // function getColor(d) {
-  //   return d > 90 ? '#800026' :
-  //          d > 70 ? '#BD0026' :
-  //          d > 50 ? '#E31A1C' :
-  //          d > 30 ? '#FC4E2A' :
-  //          d > 10 ? '#FD8D3C' :
-  //                   '#FEB24C' ;
-  // }
+  
   // run the onEachFeature function once for each piece of data in the array
   let mags = L.geoJSON(earthquakeData, {
     onEachFeature: onEachFeature,
@@ -54,23 +46,6 @@ function createFeatures(earthquakeData) {
       });
     }
   });
-
-  // let legend = L.control({position: "bottomright"});
-  // legend.onAdd = function (map) {
-  //   let div = L.DomUtil.create("div", "info legend"),
-  //       grades = [-8, 10, 30, 50, 70, 90],
-  //       labels = [];
-
-  //   for (var i = 0; i < grades.length; i++) {
-  //     div.innerHTML +=
-  //       '<i style="background:' + getColor(grades[i] + 1) + '"></i> ' +
-  //       grades[i] + (grades[i + 1] ? '&ndash;' + grades[i +1] + '<br>' : '+');
-  //   }
-  //   return div;
-
-    
-  // };
-  // legend.addTo(map);
 
   //sending our earthquakes layer to the createMap function
   createMap(earthquakes, mags);
@@ -119,30 +94,29 @@ let myMap = L.map("map", {
     collapsed: false
   }).addTo(myMap);
 
+// create legend / index colors for earthquake depth
+let legend = L.control({position: 'bottomright'});
 
- var legend = L.control({position: 'bottomright'});
+legend.onAdd = function () {
 
- legend.onAdd = function () {
+	let div = L.DomUtil.create('div', 'info legend'),
+			grades = [-9, 10, 30, 50, 70, 90],
+			labels = [];
 
-		var div = L.DomUtil.create('div', 'info legend'),
-			grades = [-9, 11, 31, 50, 70, 90],
-			labels = [],
-			from, to;
-
-		for (var i = 0; i < grades.length; i++) {
+	for (var i = 0; i < grades.length; i++) {
 			from = grades[i];
 			to = grades[i + 1];
 
 			labels.push(
 				'<i style="background:' + getColor(from + 1) + '"></i> ' +
 				from + (to ? '&ndash;' + to : '+'));
-		}
+	}
 
-		div.innerHTML = labels.join('<br>');
-		return div;
-	};
+	div.innerHTML = labels.join('<br>');
+	return div;
+};
 
-  legend.addTo(myMap);
+legend.addTo(myMap);
   
 }
 
