@@ -16,7 +16,11 @@ Leaflet Step 1 :
 
  - Earthquake marker pins and magnitude cirlcles are layered over the maps. Again, either/both can be chosen
 
- - The magnitude circle markers reflect their size proportional to their magnitude, and the colors reflect their depth of the earthqake. Thus, earthquakes with higher magnitude should appear larger and greater depth should appear darker in color.
+ - The magnitude circle markers reflect their size proportional to their magnitude, and the colors reflect their depth of the earthqake. Thus, earthquakes with higher magnitude should appear larger and greater depth should appear darker in color. 
+
+ - Popups for both marker pins and magnitude circles provide the magnitude, location, and depth of the earthquake when clicked upon.
+
+ - A legend provides an index for the color range/depth of the earthquake circles/data points.
 
 
 
